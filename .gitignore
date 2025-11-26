@@ -51,7 +51,6 @@ uv.lock
 # Artifacts
 artifacts/
 *.pdf
-*.png
 *.jpg
 *.jpeg
 
