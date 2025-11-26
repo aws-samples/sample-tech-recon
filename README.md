@@ -1,19 +1,18 @@
 <div align="center">
 
-## TechRecon: Your AI Reconnaissance agent
+## TechRecon
+### Your AI Reconnaissance agent
 [<img src="https://img.shields.io/badge/AmazonAWS-000?style=flat-square&logo=&logoColor=000">](https://registration.awsevents.com/flow/awsevents/reinvent2025/eventcatalog/page/eventcatalog?trk=direct&search=SNR203) [<img src="https://img.shields.io/badge/re:Invent-2025.12.01-orange?style=flat&logo=&logoColor=white" />]() [<img src="https://img.shields.io/badge/release-v1.0.0-yellow?style=flat&logo=google-chrome&logoColor=white" />]()
 <br> powered by 💗 [aws sample-deep-insight](https://github.com/aws-samples/sample-deep-insight)
 
 </div>
 
 ## 📝 Introduction
-**Project TechRecon** designed to help enterprise leaders master the overwhelming pace of technological change. Addressing a packed executive audience at re:invent 2025, we're introducing a methodology that reframes technology scouting from a manual, reactive task into a dynamic, automated strategic intelligence operation.
+**Project TechRecon** designed to help enterprise leaders master the overwhelming pace of technological change. Addressing a packed executive audience at re:invent 2025, we're introducing a methodology that reframes technology scouting from a manual, reactive task into a dynamic, automated strategic intelligence operation. You can create Part1: Landscape Analysis, Part2: Technical Position Papers.
 
-- re:Invent 2025
+- Presented at re:Invent 2025
     - A leader's guide to emerging technologies: From insights to rapid action(Track SNR203)
 
-
-<br />
 
 
 ### Web Interface Screenshot
@@ -35,7 +34,7 @@
 
 A web application to run and monitor the Tech Recon project.
 
-## Key Features
+### Key Features
 
 - **Real-time Log Streaming**: Monitor execution progress in real-time through WebSocket
 - **Part1/Part2 Execution**: Run processes with button clicks in the web UI
@@ -44,7 +43,7 @@ A web application to run and monitor the Tech Recon project.
 
 ## 🛠️ How to start
 
-## Installation
+## 1️⃣ Installation
 ### 1. Install uv (First Time Only)
 
 ```bash
@@ -135,7 +134,7 @@ Your AWS account/role must have the following permissions:
 - `bedrock:InvokeModelWithResponseStream`
 - Other Bedrock-related read permissions
 
-## Start the web application
+## 2️⃣ Start the web application
 
 ### Method 1: Using Start Script (Recommended)
 
@@ -215,3 +214,5 @@ This project follows the license of the original Tech Recon project.
 ## Contact
 
 If you encounter any issues or have suggestions for improvements, please submit an issue.
+
+This project is originally developed from [Deep Insight Korea SA team](https://github.com/aws-samples/sample-deep-insight).
