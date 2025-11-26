@@ -2,7 +2,7 @@
 
 ## TechRecon: Your AI Reconnaissance agent
 [<img src="https://img.shields.io/badge/AmazonAWS-000?style=flat-square&logo=&logoColor=색상">](https://registration.awsevents.com/flow/awsevents/reinvent2025/eventcatalog/page/eventcatalog?trk=direct&search=SNR203) [<img src="https://img.shields.io/badge/re:Invent-2025.12.01-orange?style=flat&logo=&logoColor=white" />]() [<img src="https://img.shields.io/badge/release-v1.0.0-yellow?style=flat&logo=google-chrome&logoColor=white" />]()
-<br> powered by 💗 [aws sample-deep-insight](./static/sample-deep-insight)
+<br> powered by 💗 [aws sample-deep-insight](https://github.com/aws-samples/sample-deep-insight)
 
 </div>
 
@@ -17,21 +17,21 @@
 
 
 ### Web Interface Screenshot
-<img src="./static/tech-recon-frontend.png">
+<img src="../01_tech_recon/static/tech-recon-frontend.png">
 
 ### Results
 
 |Part 1: Landscape Analysis|
 |:---:|
-|<img src="./static/tech-recon-part1.png" width="700"/>|
+|<img src="../01_tech_recon/static/tech-recon-part1.png" width="700"/>|
 
 |Part 2: Technical Position Papers|
 |:---:|
-|<img src="./static/tech-recon-part2.png" width="700"/>|
+|<img src="../01_tech_recon/static/tech-recon-part2.png" width="700"/>|
 
 
 
-# Tech Recon Web Interface
+## 🖥️ Tech Recon Web Interface
 
 A web application to run and monitor the Tech Recon project.
 
@@ -42,8 +42,9 @@ A web application to run and monitor the Tech Recon project.
 - **File Download**: Download generated artifact files individually or as ZIP archives
 - **Visual Monitoring**: View execution status, log count, file count at a glance
 
-## Installation
+## 🛠️ How to start
 
+## Installation
 ### 1. Install uv (First Time Only)
 
 ```bash
@@ -79,7 +80,7 @@ cd aws-samples/sample-tech-recon
 touch .env
 ```
 
-#### Required Environment Variables
+#### [Required] Environment Variables
 
 **AWS Configuration** (Required)
 ```
@@ -90,7 +91,7 @@ AWS_DEFAULT_REGION=us-west-2
 AWS_PROFILE=your-profile-name
 ```
 
-#### Optional Environment Variables
+#### [Optional] Environment Variables
 
 **Tavily Search** (for research)
 ```
@@ -134,7 +135,7 @@ Your AWS account/role must have the following permissions:
 - `bedrock:InvokeModelWithResponseStream`
 - Other Bedrock-related read permissions
 
-## How to Run
+## Start the web application
 
 ### Method 1: Using Start Script (Recommended)
 
@@ -165,10 +166,10 @@ cd aws-samples/sample-tech-recon
 # Activate virtual environment
 source uv run python main.py
 ```
+If you run the code in terminal, all files will be saved in artifacts/part1 or artifacts/part2.
 
 
-
-## How to Use
+## Web application manual
 
 ### 1. Access Web Browser
 
@@ -180,7 +181,7 @@ Since it's running locally, access the above address in your browser.
 
 ### 2. Execution
 
-1. Click **Run Part1** or **Run Part2** button
+1. Click **Run Part1** or **Run Part2**(only after the part1) button
 2. Click "OK" in the confirmation dialog
 3. Monitor progress in the real-time log screen
 
@@ -206,37 +207,6 @@ Since it's running locally, access the above address in your browser.
 2. **Concurrent Execution**: Only one Part can run at a time (Part1 -> Part2)
 3. **Browser Compatibility**: Latest versions of Chrome, Firefox, Safari, Edge recommended
 4. **Network**: Accessible only from local network (0.0.0.0:5000)
-
-## Troubleshooting
-
-### Connection Issues
-```bash
-# Check port usage
-lsof -i :5000
-
-# Kill process
-kill -9 <PID>
-```
-
-### Package Errors
-```bash
-# Reinstall packages
-pip install --upgrade flask flask-socketio python-socketio
-```
-
-### Logs Not Displaying
-- Check browser developer tools (F12) console for errors
-- Check WebSocket connection status (bottom right indicator)
-
-## Terminal vs Web Interface Comparison
-
-| Feature | Terminal Method | Web Interface |
-|---------|----------------|---------------|
-| Execution | `python main.py` | Click button in browser |
-| Log Viewing | Terminal output | Real-time display on web page |
-| File Download | Manual file navigation | Click button on web |
-| Status Monitoring | Manual check | Real-time statistics display |
-| Accessibility | Local terminal only | Accessible from browser |
 
 ## License
 
