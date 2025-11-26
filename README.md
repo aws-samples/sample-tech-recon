@@ -1,203 +1,247 @@
-# Bedrock-Manus: AI Automation Framework Based on Amazon Bedrock
+<div align="center">
 
-<p align="left">
-    <a href="https://github.com/aws-samples">
-            <img alt="Build" src="https://img.shields.io/badge/Contribution-Welcome-blue">
-    </a>
-    <a href="https://github.com/aws-samples/aws-ai-ml-workshop-kr/blob/master/LICENSE">
-        <img alt="License" src="https://img.shields.io/badge/LICENSE-MIT-green">
-    </a>
-</p>
+## TechRecon: Your AI Reconnaissance agent
+[<img src="https://img.shields.io/badge/AmazonAWS-000?style=flat-square&logo=&logoColor=색상">](https://registration.awsevents.com/flow/awsevents/reinvent2025/eventcatalog/page/eventcatalog?trk=direct&search=SNR203) [<img src="https://img.shields.io/badge/re:Invent-2025.12.01-orange?style=flat&logo=&logoColor=white" />]() [<img src="https://img.shields.io/badge/release-v1.0.0-yellow?style=flat&logo=google-chrome&logoColor=white" />]()
+<br> powered by 💗 [aws sample-deep-insight](https://github.com/aws-samples/sample-deep-insight)
 
-[English](./README.md)
+</div>
 
-> Amazon Bedrock-Optimized AI Automation Framework
+## 📝 Introduction
+**Project TechRecon** designed to help enterprise leaders master the overwhelming pace of technological change. Addressing a packed executive audience at re:invent 2025, we're introducing a methodology that reframes technology scouting from a manual, reactive task into a dynamic, automated strategic intelligence operation.
 
-Bedrock-Manus is an AI automation framework optimized for Amazon Bedrock and business use cases.
+- re:Invent 2025
+    - A leader's guide to emerging technologies: From insights to rapid action(Track SNR203)
 
-> Come From Open Source, Back to Open Source
 
-Bedrock-Manus is based on the open-source project [LangManus](https://github.com/Darwin-lfl/langmanus).
+<br />
 
-## Demo Video
 
-> **Task**: I would like to analyze Amazon product sales data. The target for analysis is the './data/Amazon_Sale_Report.csv' file. Please conduct an analysis to extract marketing insights based on this data. Please perform various analytical techniques starting from basic data attribute exploration, product sales trends, variable relationships, variable combinations, etc. If there are any additional analyses needed to extract insights after the data analysis, please perform those as well. Please include detailed analysis in the report along with supporting images and charts. Please save the final report in PDF format.
+### Web Interface Screenshot
+<img src="../01_tech_recon/static/tech-recon-frontend.png">
 
-[![Demo](./assets/demo.gif)]
+### Results
 
-- [View on YouTube](https://youtu.be/DwWICGLEv14)
-- Output in Demo is [English- Report.pdf (6 pages)](./assets/report_en.pdf) | [Korean - Report.pdf (10 pages)](./assets/report.pdf)
-- Dataset in Demo is [Amazon Sale Report](https://www.kaggle.com/datasets/thedevastator/unlock-profits-with-e-commerce-sales-data)
+|Part 1: Landscape Analysis|
+|:---:|
+|<img src="../01_tech_recon/static/tech-recon-part1.png" width="700"/>|
 
-## Table of Contents
-- [Quick Start](#quick-start)
-- [Architecture](#architecture)
-- [Features](#features)
-- [Setup](#setup)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-- [Usage](#usage)
-- [Contributors](#contributors)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
+|Part 2: Technical Position Papers|
+|:---:|
+|<img src="../01_tech_recon/static/tech-recon-part2.png" width="700"/>|
 
-## Quick Start
 
-### Option 1: UV Environment (Recommended)
 
-```bash
-# Clone the repository
-git clone https://github.com/aws-samples/aws-ai-ml-workshop-kr.git
-cd aws-ai-ml-workshop-kr/genai/aws-gen-ai-kr/20_applications/08_bedrock_manus/use_cases/05_insight_extractor_strands_sdk_agentcore/
+# Tech Recon Web Interface
 
-# Create UV environment (automatically creates symlinks in root)
-cd setup/
-./create-uv-env.sh bedrock-manus-agentcore 3.12
+A web application to run and monitor the Tech Recon project.
 
-# Run the project (from root directory)
-cd ..
-uv run python main.py
-```
+## Key Features
 
-### Option 2: Traditional Conda Environment
+- **Real-time Log Streaming**: Monitor execution progress in real-time through WebSocket
+- **Part1/Part2 Execution**: Run processes with button clicks in the web UI
+- **File Download**: Download generated artifact files individually or as ZIP archives
+- **Visual Monitoring**: View execution status, log count, file count at a glance
+
+## Installation
+
+### 1. Install uv (First Time Only)
 
 ```bash
-# Clone the repository
-git clone https://github.com/aws-samples/aws-ai-ml-workshop-kr.git
-cd aws-ai-ml-workshop-kr/genai/aws-gen-ai-kr/20_applications/08_bedrock_manus/use_cases/05_insight_extractor_strands_sdk_agentcore/
+# Install uv (macOS/Linux)
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Create and activate virtual environment
-cd setup/
-./create_conda_virtual_env.sh bedrock-manus-agentcore 3.12
+# Or use Homebrew (macOS)
+brew install uv
 
-# Run the project
-cd setup/
-source .venv/bin/activate
-
-# Run from root directory
-python main.py 
+# Verify installation
+uv --version
 ```
 
-## UI (Application)
-![Bedrock-Manus Application](./assets/streamlit.png)
-![Bedrock-Manus Application](./assets/streamlit_2.png)
-
-## Architecture
-
-Bedrock-Manus implements a hierarchical multi-agent system where a supervisor coordinates specialized agents to accomplish complex tasks:
-
-![Bedrock-Manus Architecture](./assets/architecture.png)
-
-The system consists of the following agents working together:
-
-1. **Coordinator** - The entry point that handles initial interactions and routes tasks
-2. **Planner** - Analyzes tasks and creates execution strategies
-3. **Supervisor** - Oversees and manages the execution of other agents
-5. **Coder** - Handles code generation and modifications
-7. **Reporter** - Generates reports and summaries of the workflow results
-
-## Features
-
-### Core Capabilities
-- 🤖 **LLM Integration**
-    - Support for all models provided in Amazon Bedrock (Nova, Claude, DeepSeek, Llama, etc.)
-    - Multi-tier LLM system for different task complexities
-
-### Development Features
-- 🐍 **Python Integration**
-    - Built-in Python REPL
-    - Code execution environment
-
-### Workflow Management
-- 📊 **Visualization and Control**
-    - Planning based on TODO list
-    - Workflow graph visualization
-    - Multi-agent orchestration
-    - Task delegation and monitoring
-
-## Setup
-
-### Prerequisites
-
-- This code has been tested in the environments listed below.
-    - Amazon SageMaker AI Studio (CodeEditor and JypyterLab)
-
-### Installation
-
-Bedrock-Manus leverages `UV` for fast and reliable dependency management.
-Follow the steps below to set up a virtual environment and install the necessary dependencies:
+### 2. Create Virtual Environment and Install Packages
 
 ```bash
-# Step 1: Create UV environment (automatically installs dependencies and creates symlinks)
-cd setup/
-./create-uv-env.sh bedrock-manus-agentcore 3.12
+# Navigate to project directory
+cd aws-samples/sample-tech-recon
 
-# Step 2: Run from root directory
-cd ..
-uv run python main.py
+# Create virtual environment and install dependencies (based on pyproject.toml)
+uv sync
 ```
 
-By completing these steps, you'll ensure your environment is properly configured with UV and ready for development. The script automatically creates symlinks in the root directory, allowing you to run `uv run` commands from the project root.
+This single command automatically installs all web-related packages including Flask.
 
-## Usage
+### 2. Configure Environment Variables
 
-### Basic Execution
-
-To run Bedrock-Manus with default settings:
+Create a `.env` file in the project root directory and configure the following environment variables:
 
 ```bash
-python main.py
+# Create .env file
+cd aws-samples/sample-tech-recon
+touch .env
 ```
-or use `main.ipynb`
 
-To run Bedrock-Manus with UI (Streamlit):
+#### Required Environment Variables
+
+**AWS Configuration** (Required)
+```
+# AWS Region
+AWS_DEFAULT_REGION=us-west-2
+
+# AWS Profile (optional, not needed when using IAM Role)
+AWS_PROFILE=your-profile-name
+```
+
+#### Optional Environment Variables
+
+**Tavily Search** (for research)
+```
+# Tavily API Key (for web search functionality)
+TAVILY_API_KEY=your-tavily-api-key
+
+# Maximum search results (default: 5)
+TAVILY_MAX_RESULTS=5
+```
+
+#### Example .env File
+
 ```bash
-cd app/
-streamlit run app.py
+# AWS Bedrock Configuration
+AWS_DEFAULT_REGION=us-west-2
+
+# Optional: Tavily Search (for research)
+# TAVILY_API_KEY=tvly-xxxxxxxxxxxxx
+# TAVILY_MAX_RESULTS=5
 ```
 
-### Advanced Configuration
+#### AWS Authentication Methods
 
-Bedrock-Manus can be customized through various configuration files in the `src/config` directory:
-- `agents.py`: Modify team composition, agent system prompts, and `prompt caching` enablement
+This project supports the following AWS authentication methods:
 
-### Agent Prompts System
+1. **IAM Role** (Recommended for SageMaker environment)
+   - Set only `AWS_DEFAULT_REGION` in `.env` file
+   - IAM Role automatically handles authentication
 
-Bedrock-Manus uses a sophisticated prompting system in the `src/prompts` directory to define agent behaviors and responsibilities:
+2. **AWS Profile**
+   - Configure profile in `~/.aws/credentials`
+   - Set `AWS_PROFILE` in `.env` file
 
-#### Core Agent Roles
+3. **Environment Variables**
+   - Directly set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` (not recommended)
 
-- **Supervisor ([`src/prompts/supervisor.md`](src/prompts/supervisor.md))**: Coordinates the team and delegates tasks by analyzing requests and determining which specialist should handle them. Makes decisions about task completion and workflow transitions.
+#### Permission Requirements
 
-- **Planner ([`src/prompts/planner.md`](src/prompts/file_manager.md))**: Plan and Execute tasks using a team of specialized agents to achieve the desired outcome.
+Your AWS account/role must have the following permissions:
+- `bedrock:InvokeModel`
+- `bedrock:InvokeModelWithResponseStream`
+- Other Bedrock-related read permissions
 
-- **Coder ([`src/prompts/coder.md`](src/prompts/coder.md))**: Professional software engineer role focused on Python and bash scripting. Handles:
-    - Python code execution and analysis
-    - Shell command execution
-    - Technical problem-solving and implementation
+## How to Run
 
-- **Reporter ([`src/prompts/reporter.md`](src/prompts/coder.md))**: Professional reporter responsible for writing clear, comprehensive reports based ONLY on provided information and verifiable facts.
-    - Summary imtermideate results
-    - Python code execution (results generation)
-    - Shell command execution (results generation)
+### Method 1: Using Start Script (Recommended)
 
-#### Prompt System Architecture
+```bash
+# Navigate to project directory
+cd aws-samples/sample-tech-recon
 
-The prompts system uses a template engine ([`src/prompts/template.py`](src/prompts/template.py)) that:
-- Loads role-specific markdown templates
-- Handles variable substitution (e.g., current time, team member information)
-- Formats system prompts for each agent
+# Run the start script
+./start_web.sh
+```
+When the web server starts, you'll see this message:
 
-Each agent's prompt is defined in a separate markdown file, making it easy to modify behavior and responsibilities without changing the underlying code.
+```
+============================================================
+Tech Recon Web Application
+============================================================
+Server starting at: http://localhost:5000
+Press Ctrl+C to stop the server
+============================================================
+```
 
-## Contributors
+### Method 2: Manual Execution in terminal
 
-- **Dongjin Jang, Ph.D.** (AWS AI/ML Specislist Solutions Architect) | [Mail](mailto:dongjinj@amazon.com) | [Linkedin](https://www.linkedin.com/in/dongjin-jang-kr/) | [Git](https://github.com/dongjin-ml) | [Hugging Face](https://huggingface.co/Dongjin-kr) |
+```bash
+# Navigate to project directory
+cd aws-samples/sample-tech-recon
+
+# Activate virtual environment
+source uv run python main.py
+```
+
+
+
+## How to Use
+
+### 1. Access Web Browser
+
+```
+http://localhost:5000
+```
+
+Since it's running locally, access the above address in your browser.
+
+### 2. Execution
+
+1. Click **Run Part1** or **Run Part2** button
+2. Click "OK" in the confirmation dialog
+3. Monitor progress in the real-time log screen
+
+### 3. Log Monitoring
+
+- **Real-time Logs**: View logs in real-time in the left panel
+- **Auto-scroll**: Enabled by default, can be toggled
+- **Clear Logs**: Clear the screen with the "Clear Logs" button
+
+### 4. File Download
+
+#### Individual File Download
+- Click the "Download" button for each file in the "Generated Files" section on the right panel
+
+#### Bulk File Download (ZIP)
+- **Download Part1**: Download all files generated in Part1 as ZIP
+- **Download Part2**: Download all files generated in Part2 as ZIP
+- **Download All**: Download all files from Part1 and Part2 in a single ZIP
+
+## Important Notes
+
+1. **Firewall**: Port 5000 must be open
+2. **Concurrent Execution**: Only one Part can run at a time (Part1 -> Part2)
+3. **Browser Compatibility**: Latest versions of Chrome, Firefox, Safari, Edge recommended
+4. **Network**: Accessible only from local network (0.0.0.0:5000)
+
+## Troubleshooting
+
+### Connection Issues
+```bash
+# Check port usage
+lsof -i :5000
+
+# Kill process
+kill -9 <PID>
+```
+
+### Package Errors
+```bash
+# Reinstall packages
+pip install --upgrade flask flask-socketio python-socketio
+```
+
+### Logs Not Displaying
+- Check browser developer tools (F12) console for errors
+- Check WebSocket connection status (bottom right indicator)
+
+## Terminal vs Web Interface Comparison
+
+| Feature | Terminal Method | Web Interface |
+|---------|----------------|---------------|
+| Execution | `python main.py` | Click button in browser |
+| Log Viewing | Terminal output | Real-time display on web page |
+| File Download | Manual file navigation | Click button on web |
+| Status Monitoring | Manual check | Real-time statistics display |
+| Accessibility | Local terminal only | Accessible from browser |
 
 ## License
 
-- <span style="#FF69B4;"> This is licensed under the [MIT License](https://github.com/aws-samples/aws-ai-ml-workshop-kr/blob/master/LICENSE). </span>
+This project follows the license of the original Tech Recon project.
 
-## Acknowledgments
+## Contact
 
-Special thanks to all the open source projects and contributors (especilly LangMauns) that make BedrockManus possible. We stand on the shoulders of giants.
+If you encounter any issues or have suggestions for improvements, please submit an issue.
