@@ -18,6 +18,7 @@
 ### Web Interface Screenshot
 <img src="./static/tech-recon-frontend.png">
 
+
 ### Results
 
 |Part 1: Landscape Analysis|
@@ -61,7 +62,7 @@ uv --version
 
 ```bash
 # Navigate to project directory
-cd aws-samples/sample-tech-recon
+cd aws-samples/sample-tech-recon/tech-recon
 
 # Create virtual environment and install dependencies (based on pyproject.toml)
 uv sync
@@ -75,7 +76,7 @@ Create a `.env` file in the project root directory and configure the following e
 
 ```bash
 # Create .env file
-cd aws-samples/sample-tech-recon
+cd aws-samples/sample-tech-recon/tech-recon
 touch .env
 ```
 
@@ -140,7 +141,7 @@ Your AWS account/role must have the following permissions:
 
 ```bash
 # Navigate to project directory
-cd aws-samples/sample-tech-recon
+cd aws-samples/sample-tech-recon/tech-recon
 
 # Run the start script
 ./start_web.sh
