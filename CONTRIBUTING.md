@@ -1,101 +1,61 @@
-# Contributing to LangManus
+# Contributing Guidelines
 
-Thank you for your interest in contributing to LangManus! We welcome contributions of all kinds from the community.
+Thank you for your interest in contributing to our project. Whether it's a bug report, new feature, correction, or additional
+documentation, we greatly value feedback and contributions from our community.
 
-## Ways to Contribute
+Please read through this document before submitting any issues or pull requests to ensure we have all the necessary
+information to effectively respond to your bug report or contribution.
 
-There are many ways you can contribute to LangManus:
 
-- **Code Contributions**: Add new features, fix bugs, or improve performance
-- **Documentation**: Improve README, add code comments, or create examples
-- **Bug Reports**: Submit detailed bug reports through issues
-- **Feature Requests**: Suggest new features or improvements
-- **Code Reviews**: Review pull requests from other contributors
-- **Community Support**: Help others in discussions and issues
+## Reporting Bugs/Feature Requests
 
-## Development Setup
+We welcome you to use the GitHub issue tracker to report bugs or suggest features.
 
-1. Fork the repository
-2. Clone your fork:
-   ```bash
-   git clone https://github.com/your-username/langmanus.git
-   cd langmanus
-   ```
-3. Set up your development environment:
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   uv sync
-   ```
-4. Configure pre-commit hooks:
-   ```bash
-   chmod +x pre-commit
-   ln -s ../../pre-commit .git/hooks/pre-commit
-   ```
+When filing an issue, please check [existing open](https://github.com/aws-samples/aws-serverless-airline-booking/issues), or [recently closed](https://github.com/aws-samples/aws-serverless-airline-booking/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aclosed%20), issues to make sure somebody else hasn't already
+reported the issue. Please try to include as much information as you can. Details like these are incredibly useful:
 
-## Development Process
+* A reproducible test case or series of steps
+* The version of our code being used
+* Any modifications you've made relevant to the bug
+* Anything unusual about your environment or deployment
 
-1. Create a new branch:
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
 
-2. Make your changes following our coding standards:
-   - Write clear, documented code
-   - Follow PEP 8 style guidelines
-   - Add tests for new features
-   - Update documentation as needed
+## Contributing via Pull Requests
+Contributions via pull requests are much appreciated. Before sending us a pull request, please ensure that:
 
-3. Run tests and checks:
-   ```bash
-   make test      # Run tests
-   make lint      # Run linting
-   make format    # Format code
-   make coverage  # Check test coverage
-   ```
+1. You are working against the latest source on the *master* branch.
+2. You check existing open, and recently merged, pull requests to make sure someone else hasn't addressed the problem already.
+3. You open an issue to discuss any significant work - we would hate for your time to be wasted.
 
-4. Commit your changes:
-   ```bash
-   git commit -m 'Add some amazing feature'
-   ```
+To send us a pull request, please:
 
-5. Push to your fork:
-   ```bash
-   git push origin feature/amazing-feature
-   ```
+1. Fork the repository.
+2. Modify the source; please focus on the specific change you are contributing. If you also reformat all the code, it will be hard for us to focus on your change.
+3. Ensure local tests pass.
+4. Commit to your fork using clear commit messages.
+5. Send us a pull request, answering any default questions in the pull request interface.
+6. Pay attention to any automated CI failures reported in the pull request, and stay involved in the conversation.
 
-6. Open a Pull Request
+GitHub provides additional document on [forking a repository](https://help.github.com/articles/fork-a-repo/) and
+[creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
 
-## Pull Request Guidelines
 
-- Fill in the pull request template completely
-- Include tests for new features
-- Update documentation as needed
-- Ensure all tests pass and there are no linting errors
-- Keep pull requests focused on a single feature or fix
-- Reference any related issues
+## Finding contributions to work on
+Looking at the existing issues is a great way to find something to contribute on. As our projects, by default, use the default GitHub issue labels (enhancement/bug/duplicate/help wanted/invalid/question/wontfix), looking at any ['help wanted'](https://github.com/aws-samples/aws-serverless-airline-booking/labels/help%20wanted) issues is a great place to start.
 
-## Code Style
 
-- Follow PEP 8 guidelines
-- Use type hints where possible
-- Write descriptive docstrings
-- Keep functions and methods focused and single-purpose
-- Comment complex logic
+## Code of Conduct
+This project has adopted the [Amazon Open Source Code of Conduct](https://aws.github.io/code-of-conduct).
+For more information see the [Code of Conduct FAQ](https://aws.github.io/code-of-conduct-faq) or contact
+opensource-codeofconduct@amazon.com with any additional questions or comments.
 
-## Community Guidelines
 
-- Be respectful and inclusive
-- Follow our code of conduct
-- Help others learn and grow
-- Give constructive feedback
-- Stay focused on improving the project
+## Security issue notifications
+If you discover a potential security issue in this project we ask that you notify AWS/Amazon Security via our [vulnerability reporting page](http://aws.amazon.com/security/vulnerability-reporting/). Please do **not** create a public github issue.
 
-## Need Help?
 
-If you need help with anything:
-- Check existing issues and discussions
-- Join our community channels
-- Ask questions in discussions
+## Licensing
 
-We appreciate your contributions to making LangManus better!
+See the [LICENSE](https://github.com/aws-samples/aws-serverless-airline-booking/blob/master/LICENSE) file for our project's licensing. We will ask you to confirm the licensing of your contribution.
+
+We may ask you to sign a [Contributor License Agreement (CLA)](http://en.wikipedia.org/wiki/Contributor_License_Agreement) for larger changes.
