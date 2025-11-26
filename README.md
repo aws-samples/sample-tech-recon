@@ -1,7 +1,7 @@
 <div align="center">
 
 ## TechRecon: Your AI Reconnaissance agent
-[<img src="https://img.shields.io/badge/AmazonAWS-000?style=flat-square&logo=&logoColor=색상">](https://registration.awsevents.com/flow/awsevents/reinvent2025/eventcatalog/page/eventcatalog?trk=direct&search=SNR203) [<img src="https://img.shields.io/badge/re:Invent-2025.12.01-orange?style=flat&logo=&logoColor=white" />]() [<img src="https://img.shields.io/badge/release-v1.0.0-yellow?style=flat&logo=google-chrome&logoColor=white" />]()
+[<img src="https://img.shields.io/badge/AmazonAWS-000?style=flat-square&logo=&logoColor=000">](https://registration.awsevents.com/flow/awsevents/reinvent2025/eventcatalog/page/eventcatalog?trk=direct&search=SNR203) [<img src="https://img.shields.io/badge/re:Invent-2025.12.01-orange?style=flat&logo=&logoColor=white" />]() [<img src="https://img.shields.io/badge/release-v1.0.0-yellow?style=flat&logo=google-chrome&logoColor=white" />]()
 <br> powered by 💗 [aws sample-deep-insight](https://github.com/aws-samples/sample-deep-insight)
 
 </div>
@@ -17,17 +17,17 @@
 
 
 ### Web Interface Screenshot
-<img src="../01_tech_recon/static/tech-recon-frontend.png">
+<img src="./static/tech-recon-frontend.png">
 
 ### Results
 
 |Part 1: Landscape Analysis|
 |:---:|
-|<img src="../01_tech_recon/static/tech-recon-part1.png" width="700"/>|
+|<img src="./static/tech-recon-part1.png" width="700"/>|
 
 |Part 2: Technical Position Papers|
 |:---:|
-|<img src="../01_tech_recon/static/tech-recon-part2.png" width="700"/>|
+|<img src="./static/tech-recon-part2.png" width="700"/>|
 
 
 
