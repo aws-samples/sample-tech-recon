@@ -21,7 +21,7 @@
 
 ### Results
 
-|Part 1: Landscape Analysis|
+|Part 1: Landscape Analysis: Comprehensive scan of Emerging Technologies for your business|
 |:---:|
 |<img src="./static/tech-recon-part1.png" width="700"/>|
 
