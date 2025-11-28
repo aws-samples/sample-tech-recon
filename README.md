@@ -62,7 +62,7 @@ uv --version
 
 ```bash
 # Navigate to project directory
-cd aws-samples/sample-tech-recon/tech-recon
+cd tech-recon
 
 # Create virtual environment and install dependencies (based on pyproject.toml)
 uv sync
@@ -77,7 +77,15 @@ Create a `.env` file in the project root directory and configure the following e
 ```bash
 # Create .env file
 cd aws-samples/sample-tech-recon/tech-recon
-touch .env
+
+cat > /tech-recon/.env << 'EOF'
+# Company and Industry Configuration
+COMPANY_NAME=Pfizer ### Edit here to add your company name
+INDUSTRY=pharmaceutical/healthcare ### Edit here to add your industry
+TAVILY_API_KEY= ### Paste your Tavily API Key
+
+# Add other environment variables below
+EOF
 ```
 
 #### [Required] Environment Variables
@@ -89,28 +97,6 @@ AWS_DEFAULT_REGION=us-west-2
 
 # AWS Profile (optional, not needed when using IAM Role)
 AWS_PROFILE=your-profile-name
-```
-
-#### [Optional] Environment Variables
-
-**Tavily Search** (for research)
-```
-# Tavily API Key (for web search functionality)
-TAVILY_API_KEY=your-tavily-api-key
-
-# Maximum search results (default: 5)
-TAVILY_MAX_RESULTS=5
-```
-
-#### Example .env File
-
-```bash
-# AWS Bedrock Configuration
-AWS_DEFAULT_REGION=us-west-2
-
-# Optional: Tavily Search (for research)
-# TAVILY_API_KEY=tvly-xxxxxxxxxxxxx
-# TAVILY_MAX_RESULTS=5
 ```
 
 #### AWS Authentication Methods
