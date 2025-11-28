@@ -11,7 +11,11 @@ def apply_prompt_template(prompt_name: str, prompt_context={}) -> str:
     - 다른 패턴의 중괄호는 Python 코드로 간주하여 그대로 유지
     """
     system_prompts = open(os.path.join(os.path.dirname(__file__), f"{prompt_name}.md")).read() ## Template.py가 있는 dir이 기준
-    context = {"CURRENT_TIME": datetime.now().strftime("%a %b %d %Y %H:%M:%S %z")}
+    context = {
+        "CURRENT_TIME": datetime.now().strftime("%a %b %d %Y %H:%M:%S %z"),
+        "COMPANY_NAME": os.getenv("COMPANY_NAME", "YourCompanyName"),
+        "INDUSTRY": os.getenv("INDUSTRY", "YourIndustry")
+    }
     context.update(prompt_context)
 
     # 정규식으로 대문자+언더스코어+숫자 패턴만 치환
