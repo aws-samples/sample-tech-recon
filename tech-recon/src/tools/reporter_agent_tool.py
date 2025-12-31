@@ -7,6 +7,7 @@ from src.prompts.template import apply_prompt_template
 from src.utils.common_utils import get_message_from_string, start_periodic_status, stop_periodic_status
 
 from src.tools import python_repl_tool, bash_tool
+from src.tools.python_repl_tool import PythonREPL
 from strands_tools import file_read
 
 # Simple logger setup
@@ -86,6 +87,9 @@ def handle_reporter_agent_tool(_task: Annotated[str, "The reporting task or inst
             prompt_name = "reporter_part1"
             agent_name = "reporter-1"
             logger.info(f"\n{Colors.GREEN}[Using reporter_part1 prompt for reporter-1]{Colors.END}")
+
+        # Set agent name in thread-local storage for REPL namespace isolation
+        PythonREPL.set_current_agent_name(agent_name)
 
         # Create reporter agent with specialized tools using consistent pattern
         reporter_agent = strands_utils.get_agent(

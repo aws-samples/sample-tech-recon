@@ -166,11 +166,25 @@ class bedrock_info():
             return cls._BEDROCK_MODEL_INFO
 
     @classmethod
-    def get_model_id(cls, model_name):
+    def get_model_id(cls, model_name, region=None):
 
         assert model_name in cls._BEDROCK_MODEL_INFO.keys(), "Check model name"
 
-        return cls._BEDROCK_MODEL_INFO[model_name]
+        base_id = cls._BEDROCK_MODEL_INFO[model_name]
+        
+        # If region is not provided, try to get it from environment variables
+        if region is None:
+            region = os.environ.get("AWS_REGION", os.environ.get("AWS_DEFAULT_REGION"))
+        
+        # Handle region-specific model ID prefixes
+        # The 'us.' prefix is only valid for US regions (e.g., us-east-1, us-west-2)
+        # For non-US regions (e.g., eu-west-2, ap-southeast-1), the 'us.' prefix must be removed
+        if region and not region.startswith('us-'):
+            # Non-US region: remove 'us.' prefix if present
+            if base_id.startswith('us.'):
+                base_id = base_id.replace('us.', '', 1)
+        
+        return base_id
     
 class bedrock_model():
 

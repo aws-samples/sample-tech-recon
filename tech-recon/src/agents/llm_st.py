@@ -201,15 +201,16 @@ def get_llm_by_type(llm_type: LLMType):
     Get LLM instance by type. Returns cached instance if available.
     """
 
+    region = os.environ.get("AWS_DEFAULT_REGION", None)
     boto3_bedrock = bedrock.get_bedrock_client(
         assumed_role=os.environ.get("BEDROCK_ASSUME_ROLE", None),
         endpoint_url=os.environ.get("BEDROCK_ENDPOINT_URL", None),
-        region=os.environ.get("AWS_DEFAULT_REGION", None),
+        region=region,
     )
 
     if llm_type == "reasoning":
         llm = bedrock_model(
-            model_id=bedrock_info.get_model_id(model_name="Claude-V3-7-Sonnet-CRI"),
+            model_id=bedrock_info.get_model_id(model_name="Claude-V3-7-Sonnet-CRI", region=region),
             bedrock_client=boto3_bedrock,
             stream=True,
             callbacks=[StreamingStdOutCallbackHandler()],
@@ -223,7 +224,7 @@ def get_llm_by_type(llm_type: LLMType):
     elif llm_type == "basic":
         llm = bedrock_model(
             #model_id=bedrock_info.get_model_id(model_name="Nova-Pro-CRI"),
-            model_id=bedrock_info.get_model_id(model_name="Claude-V3-5-V-2-Sonnet-CRI"),
+            model_id=bedrock_info.get_model_id(model_name="Claude-V3-5-V-2-Sonnet-CRI", region=region),
             bedrock_client=boto3_bedrock,
             stream=True,
             callbacks=[StreamingStdOutCallbackHandler()],
@@ -236,7 +237,7 @@ def get_llm_by_type(llm_type: LLMType):
     elif llm_type == "vision":
         llm = bedrock_model(
             #model_id=bedrock_info.get_model_id(model_name="Claude-V3-7-Sonnet-CRI"),
-            model_id=bedrock_info.get_model_id(model_name="Claude-V3-5-V-2-Sonnet-CRI"),
+            model_id=bedrock_info.get_model_id(model_name="Claude-V3-5-V-2-Sonnet-CRI", region=region),
             bedrock_client=boto3_bedrock,
             stream=True,
             callbacks=[StreamingStdOutCallbackHandler()],
@@ -249,7 +250,7 @@ def get_llm_by_type(llm_type: LLMType):
     elif llm_type == "browser":
         llm = ChatBedrock(
             #model_id=bedrock_info.get_model_id(model_name="Claude-V3-7-Sonnet-CRI"),
-            model_id=bedrock_info.get_model_id(model_name="Claude-V3-5-V-2-Sonnet-CRI"),
+            model_id=bedrock_info.get_model_id(model_name="Claude-V3-5-V-2-Sonnet-CRI", region=region),
             client=boto3_bedrock,
             model_kwargs={
                 "max_tokens": 8192,

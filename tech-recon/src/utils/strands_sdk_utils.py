@@ -3,6 +3,7 @@
 import logging
 import traceback
 import asyncio
+import os
 from datetime import datetime
 from src.utils.bedrock import bedrock_info
 from strands import Agent
@@ -83,6 +84,7 @@ class strands_utils():
         llm_type = kwargs["llm_type"]
         cache_type = kwargs["cache_type"]
         enable_reasoning = kwargs["enable_reasoning"]
+        region = os.environ.get("AWS_REGION", os.environ.get("AWS_DEFAULT_REGION"))
 
         if llm_type in ["claude-sonnet-3-7", "claude-sonnet-4", "claude-sonnet-4-5"]:
             
@@ -92,7 +94,7 @@ class strands_utils():
 
             ## BedrockModel params: https://strandsagents.com/latest/api-reference/models/?h=bedrockmodel#strands.models.bedrock.BedrockModel
             llm = BedrockModel(
-                model_id=bedrock_info.get_model_id(model_name=model_name),
+                model_id=bedrock_info.get_model_id(model_name=model_name, region=region),
                 streaming=True,
                 max_tokens=8192*5,
                 stop_sequences=["\n\nHuman"],
@@ -114,7 +116,7 @@ class strands_utils():
         elif llm_type == "claude-sonnet-3-5-v-2":
             ## BedrockModel params: https://strandsagents.com/latest/api-reference/models/?h=bedrockmodel#strands.models.bedrock.BedrockModel
             llm = BedrockModel(
-                model_id=bedrock_info.get_model_id(model_name="Claude-V4-5-Sonnet"),
+                model_id=bedrock_info.get_model_id(model_name="Claude-V4-5-Sonnet", region=region),
                 streaming=True,
                 max_tokens=8192,
                 stop_sequences=["\n\nHuman"],

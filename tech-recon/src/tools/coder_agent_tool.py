@@ -6,6 +6,7 @@ from src.utils.strands_sdk_utils import strands_utils
 from src.prompts.template import apply_prompt_template
 from src.utils.common_utils import get_message_from_string, start_periodic_status, stop_periodic_status
 from src.tools import python_repl_tool, bash_tool
+from src.tools.python_repl_tool import PythonREPL
 from strands_tools import file_read
 
 
@@ -75,6 +76,9 @@ def handle_coder_agent_tool(task: Annotated[str, "The coding task or question th
         artifact_folder = shared_state.get("artifact_folder", "./artifacts/")  # Get part-specific folder
         part1_folder = shared_state.get("part1_folder", "./artifacts/part1")  # For Part2 reference
 
+        # Set agent name in thread-local storage for REPL namespace isolation
+        PythonREPL.set_current_agent_name("coder")
+        
         # Create coder agent with specialized tools using consistent pattern
         coder_agent = strands_utils.get_agent(
             agent_name="coder",

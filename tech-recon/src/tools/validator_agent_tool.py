@@ -9,6 +9,7 @@ import pandas as pd
 from datetime import datetime
 
 from src.tools import python_repl_tool, bash_tool
+from src.tools.python_repl_tool import PythonREPL
 from strands_tools import file_read
 
 from dotenv import load_dotenv
@@ -136,6 +137,9 @@ def handle_validator_agent_tool(_task: Annotated[str, "The validation task or in
 
     request_prompt, full_plan = shared_state.get("request_prompt", ""), shared_state.get("full_plan", "")
     clues, messages = shared_state.get("clues", ""), shared_state.get("messages", [])
+
+    # Set agent name in thread-local storage for REPL namespace isolation
+    PythonREPL.set_current_agent_name("validator")
 
     # Create validator agent with specialized tools using consistent pattern
     validator_agent = strands_utils.get_agent(

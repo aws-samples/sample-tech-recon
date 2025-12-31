@@ -6,6 +6,7 @@ from src.utils.strands_sdk_utils import strands_utils
 from src.prompts.template import apply_prompt_template
 from src.utils.common_utils import get_message_from_string, start_periodic_status, stop_periodic_status
 from src.tools import python_repl_tool, bash_tool, tavily_tool, crawl_tool
+from src.tools.python_repl_tool import PythonREPL
 
 
 # Simple logger setup
@@ -74,6 +75,9 @@ def handle_researcher_agent_tool(task: Annotated[str, "The research task or ques
         clues, messages = shared_state.get("clues", ""), shared_state.get("messages", [])
         artifact_folder = shared_state.get("artifact_folder", "./artifacts/")  # Get part-specific folder
         part1_folder = shared_state.get("part1_folder", "./artifacts/part1")  # For Part2 reference
+
+        # Set agent name in thread-local storage for REPL namespace isolation
+        PythonREPL.set_current_agent_name("researcher")
 
         # Create researcher agent with specialized tools using consistent pattern
         researcher_agent = strands_utils.get_agent(
