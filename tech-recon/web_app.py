@@ -3,12 +3,13 @@ Web Application for Tech Recon Project
 Web interface supporting real-time log streaming and file downloads
 """
 
-from flask import Flask, render_template, jsonify, send_file, request, Response
+from flask import Flask, render_template, jsonify, send_file, send_from_directory, request, Response
 from flask_socketio import SocketIO, emit
 import asyncio
 import threading
 import os
 import shutil
+import secrets
 import zipfile
 import io
 from datetime import datetime
@@ -24,8 +25,13 @@ from main import graph_streaming_execution
 from src.utils.strands_sdk_utils import strands_utils
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'tech-recon-secret-key-2025'
+app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY') or secrets.token_hex(32)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # Disable caching for static files
+
+# Only files under these artifact sub-folders can be downloaded
+ARTIFACTS_DIR = Path('./artifacts').resolve()
+ALLOWED_PARTS = ('part1', 'part2')
+
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
 # Disable caching for all responses
@@ -330,13 +336,24 @@ def list_files():
 
 @app.route('/api/download/<path:file_path>')
 def download_file(file_path):
-    """Download individual file"""
-    full_path = Path('./artifacts') / file_path
-
-    if not full_path.exists() or not full_path.is_file():
+    """Download individual file (restricted to ./artifacts/part1 and ./artifacts/part2)"""
+    # Resolve the requested path and make sure it stays inside the artifacts directory.
+    # This blocks traversal such as "../.env", "part1/../../.env", absolute paths and symlink escapes.
+    try:
+        full_path = (ARTIFACTS_DIR / file_path).resolve(strict=True)
+    except (FileNotFoundError, RuntimeError, OSError):
         return jsonify({'error': 'File not found'}), 404
 
-    return send_file(full_path, as_attachment=True, download_name=full_path.name)
+    allowed_roots = [(ARTIFACTS_DIR / part).resolve() for part in ALLOWED_PARTS]
+    if not any(full_path.is_relative_to(root) for root in allowed_roots):
+        return jsonify({'error': 'Forbidden'}), 403
+
+    if not full_path.is_file():
+        return jsonify({'error': 'File not found'}), 404
+
+    # send_from_directory applies Werkzeug's safe_join as a second layer of defense
+    relative_path = full_path.relative_to(ARTIFACTS_DIR).as_posix()
+    return send_from_directory(ARTIFACTS_DIR, relative_path, as_attachment=True, download_name=full_path.name)
 
 
 @app.route('/api/download-all/<part>')
@@ -346,10 +363,13 @@ def download_all_files(part):
     if part not in ['part1', 'part2', 'all']:
         return jsonify({'error': 'Invalid part'}), 400
 
-    artifacts_path = Path('./artifacts')
+    artifacts_path = ARTIFACTS_DIR
 
     if not artifacts_path.exists():
         return jsonify({'error': 'No artifacts found'}), 404
+
+    # Same containment rule as /api/download: skip anything (e.g. a symlink) that resolves outside part1/part2
+    allowed_roots = [(ARTIFACTS_DIR / p).resolve() for p in ALLOWED_PARTS]
 
     # Create ZIP file in memory
     memory_file = io.BytesIO()
@@ -365,6 +385,9 @@ def download_all_files(part):
             if folder_path.exists():
                 for file_path in folder_path.rglob('*'):
                     if file_path.is_file():
+                        real_path = file_path.resolve()
+                        if not any(real_path.is_relative_to(root) for root in allowed_roots):
+                            continue
                         arcname = file_path.relative_to(artifacts_path)
                         zf.write(file_path, arcname)
 
@@ -402,7 +425,7 @@ if __name__ == '__main__':
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='Tech Recon Web Application')
     parser.add_argument('--port', type=int, default=8050, help='Port to run the server on (default: 8050)')
-    parser.add_argument('--host', type=str, default='0.0.0.0', help='Host to bind to (default: 0.0.0.0)')
+    parser.add_argument('--host', type=str, default='127.0.0.1', help='Host to bind to (default: 127.0.0.1, local only)')
     args = parser.parse_args()
 
     # Create templates folder
@@ -428,4 +451,7 @@ if __name__ == '__main__':
     print("="*60)
 
     # Run web server
+    if args.host not in ('127.0.0.1', 'localhost', '::1'):
+        print("WARNING: binding to a non-loopback address exposes this unauthenticated app to your network.")
+
     socketio.run(app, host=args.host, port=args.port, debug=False, allow_unsafe_werkzeug=True)
