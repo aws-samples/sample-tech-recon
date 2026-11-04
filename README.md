@@ -137,7 +137,8 @@ When the web server starts, you'll see this message:
 ============================================================
 Tech Recon Web Application
 ============================================================
-Server starting at: http://localhost:5000
+Server starting at: http://127.0.0.1:8050
+Access from browser: http://localhost:8050
 Press Ctrl+C to stop the server
 ============================================================
 ```
@@ -159,7 +160,7 @@ If you run the code in terminal, all files will be saved in artifacts/part1 or a
 ### 1. Access Web Browser
 
 ```
-http://localhost:5000
+http://localhost:8050
 ```
 
 Since it's running locally, access the above address in your browser.
@@ -188,10 +189,10 @@ Since it's running locally, access the above address in your browser.
 
 ## Important Notes
 
-1. **Firewall**: Port 5000 must be open
+1. **Firewall**: Not required for local use (the app listens on 127.0.0.1:8050)
 2. **Concurrent Execution**: Only one Part can run at a time (Part1 -> Part2)
 3. **Browser Compatibility**: Latest versions of Chrome, Firefox, Safari, Edge recommended
-4. **Network**: Accessible only from local network (0.0.0.0:5000)
+4. **Network**: Binds to 127.0.0.1 (this machine only) by default. The app has no authentication, so do not expose it with `--host 0.0.0.0` on shared or internet-reachable hosts.
 
 ## License
 
