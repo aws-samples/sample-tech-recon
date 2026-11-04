@@ -90,11 +90,21 @@ def test_download_nested_and_part2_files(client):
     'part2/../../.env',
     'other.txt',
     'part1/../other.txt',
+    '../../../../../../../../etc/passwd',
 ])
 def test_download_traversal_is_forbidden(client, path):
     resp = client.get('/api/download/' + path)
     assert resp.status_code == 403
     assert SECRET.encode() not in resp.data
+    assert b'root:' not in resp.data
+
+
+def test_outside_paths_do_not_reveal_existence(client):
+    # An existing and a missing file outside the allowed folders must get the same answer
+    existing = client.get('/api/download/../.env')
+    missing = client.get('/api/download/../no-such-file')
+    assert existing.status_code == missing.status_code == 403
+    assert existing.data == missing.data
 
 
 @pytest.mark.parametrize('url', [
@@ -136,6 +146,12 @@ def test_download_missing_file_is_404(client):
 
 def test_download_directory_is_404(client):
     assert client.get('/api/download/part1').status_code == 404
+    assert client.get('/api/download/part2').status_code == 404
+    assert client.get('/api/download/part1/sub').status_code == 404
+
+
+def test_download_null_byte_is_rejected(client):
+    assert client.get('/api/download/part1/report.md%00.txt').status_code in (400, 404)
 
 
 # Existing UI flow: file list, individual download, ZIP download

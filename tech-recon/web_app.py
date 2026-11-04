@@ -337,23 +337,31 @@ def list_files():
 @app.route('/api/download/<path:file_path>')
 def download_file(file_path):
     """Download individual file (restricted to ./artifacts/part1 and ./artifacts/part2)"""
-    # Resolve the requested path and make sure it stays inside the artifacts directory.
-    # This blocks traversal such as "../.env", "part1/../../.env", absolute paths and symlink escapes.
+    # Normalize the requested path, then check it before any file access.
+    # realpath collapses "..", absolute paths and symlinks, so "../.env", "part1/../../.env",
+    # "/etc/passwd" and a symlink pointing outside all land outside the allowed folders.
+    # Anything outside gets 403 whether or not it exists, so responses do not reveal
+    # which files exist elsewhere on the host.
+    base_dir = os.path.realpath(ARTIFACTS_DIR)
+    part_dirs = tuple(os.path.join(base_dir, part) for part in ALLOWED_PARTS)
     try:
-        full_path = (ARTIFACTS_DIR / file_path).resolve(strict=True)
-    except (FileNotFoundError, RuntimeError, OSError):
+        full_path = os.path.realpath(os.path.join(base_dir, file_path))
+    except (ValueError, OSError):  # e.g. an embedded null byte
         return jsonify({'error': 'File not found'}), 404
 
-    allowed_roots = [(ARTIFACTS_DIR / part).resolve() for part in ALLOWED_PARTS]
-    if not any(full_path.is_relative_to(root) for root in allowed_roots):
+    if full_path in part_dirs:
+        # The part folder itself is a directory, not a downloadable file
+        return jsonify({'error': 'File not found'}), 404
+
+    if not full_path.startswith(tuple(part_dir + os.sep for part_dir in part_dirs)):
         return jsonify({'error': 'Forbidden'}), 403
 
-    if not full_path.is_file():
+    if not os.path.isfile(full_path):
         return jsonify({'error': 'File not found'}), 404
 
     # send_from_directory applies Werkzeug's safe_join as a second layer of defense
-    relative_path = full_path.relative_to(ARTIFACTS_DIR).as_posix()
-    return send_from_directory(ARTIFACTS_DIR, relative_path, as_attachment=True, download_name=full_path.name)
+    relative_path = Path(os.path.relpath(full_path, base_dir)).as_posix()
+    return send_from_directory(base_dir, relative_path, as_attachment=True, download_name=os.path.basename(full_path))
 
 
 @app.route('/api/download-all/<part>')
